@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Learning Log</title>
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    {% load django_bootstrap5 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+    <style>
+        /* General Body Styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa; /* Light gray background for better contrast */
+            color: #333; /* Darker text for readability */
+        }
+        
+        /* Navbar Customizations */
+        .navbar {
+            background-color: #007bff; /* Bootstrap primary color */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Add shadow for depth */
+        }
+
+        .navbar-brand, .nav-link, .navbar-text {
+            color: white !important; /* White text for navbar elements */
+        }
+
+        .nav-link:hover {
+            color: #ffcc00 !important; /* Highlight color on hover */
+        }
+
+        .btn {
+            margin-left: 5px; /* Space between buttons */
+        }
+
+        /* Main Content Area */
+        main {
+            padding: 20px; /* Add some padding to the main area */
+            background-color: white; /* White background for content area */
+            border-radius: 5px; /* Rounded corners */
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+        }
+
+        /* Card Styling for Topics */
+        .card {
+            border-radius: 10px; /* Round the corners of the card */
+            transition: transform 0.2s; /* Animation effect */
+        }
+
+        .card:hover {
+            transform: scale(1.02); /* Slight zoom effect on hover */
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-md mb-4">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="{% url 'onesimus_app:index' %}">Onesimus</a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarCollapse" aria-controls="navbarCollapse"
+                    aria-expanded="false" aria-label="Toggle Navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <ul class="navbar-nav me-auto mb-2 mb-md-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'onesimus_app:topics' %}">Topics</a>
+                    </li>
+                </ul>
+
+                <div class="ms-auto">
+                    {% if user.is_authenticated %}
+                        <span class="navbar-text">Hello, {{ user.username }}.</span>
+                        <form action="{% url 'accounts:logout' %}" method="post" class="d-inline">
+                            {% csrf_token %}
+                            <button name="submit" class="btn btn-outline-light btn-sm">Log out</button>
+                        </form>
+                    {% else %}
+                        {% if request.path == '/accounts/login/' %}  <!-- Check if on login page -->
+                            <a href="{% url 'accounts:register' %}" class="btn btn-outline-light btn-sm">Register</a>
+                        {% else %}
+                            <a href="{% url 'accounts:login' %}" class="btn btn-outline-light btn-sm">Log in</a>
+                        {% endif %}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container">
+        <div class="pb-2 mb-2 border-bottom">
+            {% block page_header %}{% endblock page_header %}
+            {% block content %}{% endblock content %}
+        </div>
+    </main>
+</body>
+</html>

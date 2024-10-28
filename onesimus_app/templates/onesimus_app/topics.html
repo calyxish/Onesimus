@@ -1,0 +1,27 @@
+{% extends 'onesimus_app/base.html' %}
+
+{% block page_header %}
+<h1>Topics</h1>
+{% endblock page_header %}
+
+{% block content %}
+<div class="container mt-4">
+    <ul class="list-group border-bottom pb-2 mb-4">
+        {% for topic in topics %}
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+            <a href="{% url 'onesimus_app:topic' topic.id %}">{{ topic.text }}</a>
+        </li>
+        {% empty %}
+        <li class="list-group-item d-flex justify-content-between align-items-center">No topics have been added yet.</li>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'onesimus_app:new_topic' %}" class="btn btn-primary">Add a new topic</a>
+</div>
+{% endblock content %}
+
+<style>
+    /* List group item styles */
+    .list-group-item {
+      transition: background-color 0.5s; /* Smooth transition for list items */
+    }
+</style>

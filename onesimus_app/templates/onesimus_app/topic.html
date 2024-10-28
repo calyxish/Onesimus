@@ -1,0 +1,24 @@
+{% extends 'onesimus_app/base.html' %}
+
+{% block page_header %}
+<h1>{{ topic.text }}</h1>
+{% endblock page_header %}
+
+{% block content %}
+<div class="container mt-4">
+    <p>
+        <a class="btn btn-primary" href="{% url 'onesimus_app:new_entry' topic.id %}">Add new entry</a>
+    </p>
+    {% for entry in entries %}
+    <div class="card mb-3">
+        <h4 class="card-header d-flex justify-content-between align-items-center">
+            {{ entry.date_added|date:'M d, Y H:i' }}
+            <small><a href="{% url 'onesimus_app:edit_entry' entry.id %}">edit entry</a></small>
+        </h4>
+        <div class="card-body">{{ entry.text|linebreaks }}</div>
+    </div>
+    {% empty %}
+    <p>There are no entries for this topic yet.</p>
+    {% endfor %}
+</div>
+{% endblock content %}

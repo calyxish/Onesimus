@@ -1,0 +1,15 @@
+{% extends "onesimus_app/base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Add a new topic:</h2>
+    <form action="{% url 'onesimus_app:new_topic' %}" method="post">
+        {% csrf_token %}
+        <div class="mb-3">
+            {% csrf_token %}
+            {{ form.as_div }}
+        </div>
+        <button type="submit" class="btn btn-primary">Add Topic</button>
+    </form>
+</div>
+{% endblock content %}
