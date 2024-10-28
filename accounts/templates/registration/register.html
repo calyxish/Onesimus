@@ -1,0 +1,122 @@
+{% extends "onesimus_app/base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow">
+                <div class="card-header text-center bg-primary text-white">
+                    <h2>Register</h2>
+                </div>
+                <div class="card-body">
+                    <form action="{% url 'accounts:register' %}" method="post" class="needs-validation" novalidate>
+                        {% csrf_token %}
+
+                        <!-- Username field -->
+                        <div class="form-group mb-3">
+                            <label for="{{ form.username.id_for_label }}">Username</label>
+                            {{ form.username }}  
+                            {% if form.username.errors %}
+                                <div class="invalid-feedback d-block">
+                                    {% for error in form.username.errors %}
+                                        {{ error }}<br>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+
+                        <!-- Email field (if you added it to the form) -->
+                        <div class="form-group mb-3">
+                            <label for="{{ form.email.id_for_label }}">Email</label>
+                            {{ form.email }}  
+                            {% if form.email.errors %}
+                                <div class="invalid-feedback d-block">
+                                    {% for error in form.email.errors %}
+                                        {{ error }}<br>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+
+                        <!-- Password field -->
+                        <div class="form-group mb-3">
+                            <label for="{{ form.password1.id_for_label }}">Password</label>
+                            {{ form.password1 }}  
+                            {% if form.password1.errors %}
+                                <div class="invalid-feedback d-block">
+                                    {% for error in form.password1.errors %}
+                                        {{ error }}<br>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+
+                        <!-- Password confirmation field -->
+                        <div class="form-group mb-3">
+                            <label for="{{ form.password2.id_for_label }}">Password Confirmation</label>
+                            {{ form.password2 }}  
+                            {% if form.password2.errors %}
+                                <div class="invalid-feedback d-block">
+                                    {% for error in form.password2.errors %}
+                                        {{ error }}<br>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+
+                        <!-- Submit button -->
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-primary btn-lg mt-3">Register</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Additional styles for form elements -->
+<style>
+    /* Add custom styles */
+    input.form-control {
+        padding: 10px;
+        font-size: 16px;
+        margin-top: 5px; /* Space between label and input */
+    }
+
+    input::placeholder {
+        font-style: italic;
+        color: #888;
+    }
+
+    /* Styling input field when focused */
+    input.form-control:focus {
+        border-color: #007bff;
+        box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+    }
+
+    /* Card shadow for depth */
+    .card {
+        border-radius: 10px;
+        border: none;
+    }
+
+    .card-header {
+        font-weight: bold;
+        border-bottom: none;
+    }
+
+    .card-body {
+        padding: 20px;
+    }
+
+    .form-group {
+        margin-bottom: 1.5rem;
+    }
+
+    /* Submit button hover effect */
+    button:hover {
+        background-color: #0056b3;
+    }
+</style>
+{% endblock content %}
