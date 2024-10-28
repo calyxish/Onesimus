@@ -30,7 +30,7 @@ The name Onesimus is inspired by its meaning: helper. This app is designed to be
 
 ## 4. Project Preview
 
-![Project Preview]()
+![Project Preview](Onesimus_Preview.png)
 
 
 ## 5. Installation
